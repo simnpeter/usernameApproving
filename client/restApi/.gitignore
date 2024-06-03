@@ -1,0 +1,22 @@
+# Python specific ignores
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+.pyenv/
+
+# Config files
+config.py
+
+# Other common ignores
+*.log
+*.sqlite3
+*.db
+*.bak
+*.swp
+.DS_Store
