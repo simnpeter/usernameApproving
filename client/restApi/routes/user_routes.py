@@ -43,8 +43,7 @@ def login():
 def get_users():
     # Felhasználók lekérése
     users, status = get_all_users()
-    serialized_users = [user.to_json() for user in users]
-    return jsonify({"users": serialized_users}), status
+    return jsonify({"users": users}), status
 
 @user_routes.route('/users', methods=['PATCH'])
 def approve_manual():

@@ -1,4 +1,5 @@
-from mongoengine import Document, StringField, BooleanField
+from mongoengine import Document, StringField, BooleanField, DateTimeField
+from datetime import datetime
 
 class User(Document):
     username = StringField(required=True, unique=True)
@@ -6,3 +7,8 @@ class User(Document):
     approved = BooleanField(required=True)
     approved_human = BooleanField(default=False)
     is_admin = BooleanField(default=False)
+    modified = DateTimeField(default=datetime.now)
+
+    meta = {
+        'collection': 'users'
+    }
