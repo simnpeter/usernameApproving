@@ -3,8 +3,10 @@ from flask import Flask
 from mongoengine import connect
 from routes.user_routes import user_routes
 from config import MONGO_URI, SECRET_KEY, TLS_CA_FILE
-
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SECRET_KEY'] = SECRET_KEY
 
 # MongoDB csatlakozás

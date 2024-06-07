@@ -4,20 +4,21 @@ from models.user import User
 import jwt
 import datetime
 import requests
-from services.user_service import register_user, login_user, get_all_users, update_user_approval
+from flask_cors import  cross_origin
+from services.user_service import register_user, login_user, get_all_users, update_user_approval, predict
 from config import SECRET_KEY
 
 user_routes = Blueprint('user_routes', __name__)
 
 @user_routes.route('/register', methods=['POST'])
+@cross_origin()
 def register():
     data = request.get_json()
     username = data['username']
     password = data['password']
 
     # Hívás a predikciós API-hoz
-    approval_response = requests.post('http://127.0.0.1:5000/predict', json={"name": username})
-    approved_value = approval_response.json()['approved']
+    approved_value = predict(username)
 
     # Felhasználó regisztrálása
     response, status = register_user(username, password, approved_value)
@@ -32,12 +33,9 @@ def login():
     # Felhasználó bejelentkezése
     user, status = login_user(username, password)
     if status == 200:
-        token = jwt.encode({
-            'username': user.username,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)
-        }, SECRET_KEY, algorithm='HS256')
-        return jsonify({"token": token}), 200
-    return jsonify(user), status
+        return jsonify({"user": user}), status
+    else:
+        return jsonify({"message": user["message"]}), status
 
 @user_routes.route('/users', methods=['GET'])
 def get_users():
@@ -56,9 +54,4 @@ def approve_manual():
 
     # Felhasználó frissítése
     response, status = update_user_approval(user_id, approved)
-    
-    if status == 200:
-        name = User.objects(id=user_id).first().username
-        requests.post('http://127.0.0.1:5000/add_name', json={"name": name, "label": approved})
-
     return jsonify(response), status
