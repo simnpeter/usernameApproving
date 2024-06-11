@@ -1,7 +1,7 @@
 // src/Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Modal, Button } from 'react-bootstrap';
+import { Form, Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate} from 'react-router-dom';
 
 function Register() {
@@ -51,45 +51,55 @@ function Register() {
     };
 
     return (
-        <div>
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Register</button>
-            </form>
-            <button onClick={handleLoginRedirect}>Already have an account? Login</button>
-            {message && <p>{message}</p>}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Registration Status</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>Username {approvedAi ? 'has been approved by AI.' : 'has not been approved by AI.'}</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
+        <Container>
+            <Row className="justify-content-md-center">
+                <Col md="6">
+                    <div className="mt-5">
+                        <h2>Register</h2>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="formUsername" className="mb-3">
+                                <Form.Label>Username:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="formPassword" className="mb-3">
+                                <Form.Label>Password:</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Register
+                            </Button>
+                        </Form>
+                        <Button variant="link" onClick={handleLoginRedirect}>
+                            Already have an account? Login
+                        </Button>
+                        {message && <p className="mt-3">{message}</p>}
+                        <Modal show={showModal} onHide={() => setShowModal(false)}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Registration Status</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <p>Username {approvedAi ? 'has been approved by AI.' : 'has not been approved by AI.'}</p>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                    Close
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

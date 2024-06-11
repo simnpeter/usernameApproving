@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 
 function Admin() {
@@ -49,29 +50,43 @@ function Admin() {
     };
 
     return (
-        <div>
-            <h2>Admin Panel</h2>
-            {message && <p>{message}</p>}
-            {users.length === 0 ? (
-                <p>Loading...</p>
-            ) : (
-                users.map((user, i) => (
-                    <div key={i} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
-                        <p><strong>Username:</strong> {user.username}</p>
-                        <p><strong>AI Approved:</strong> {user.approved_ai ? 'Yes' : 'No'}</p>
-                        <p><strong>Human Approved:</strong> {user.approved_human === null ? 'Pending' : user.approved_human ? 'Yes' : 'No'}</p>
-                        {user.approved_human === null ? (
-                            <div>
-                                <button onClick={() => handleApproval(user._id, true)} style={{ marginRight: '10px' }}>Approve</button>
-                                <button onClick={() => handleApproval(user._id, false)}>Reject</button>
-                            </div>
-                        ) : (
-                            <p>The user has been reviewed.</p>
-                        )}
-                    </div>
-                ))
-            )}
-        </div>
+        <Container className="mt-5">
+            <Row className="justify-content-md-center">
+                <Col md="8">
+                    <h2>Admin Panel</h2>
+                    {message && <Alert variant="info">{message}</Alert>}
+                    {users.length === 0 ? (
+                        <p>Loading...</p>
+                    ) : (
+                        users.map((user, i) => (
+                            <Card key={i} className="mb-3">
+                                <Card.Body>
+                                    <Card.Title>Username: {user.username}</Card.Title>
+                                    <Card.Text>
+                                        <strong>AI Approved:</strong> {user.approved_ai ? 'Yes' : 'No'}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <strong>Human Approved:</strong> {user.approved_human === null ? 'Pending' : user.approved_human ? 'Yes' : 'No'}
+                                    </Card.Text>
+                                    {user.approved_human === null ? (
+                                        <div>
+                                            <Button variant="success" onClick={() => handleApproval(user._id, true)} className="me-2">
+                                                Approve
+                                            </Button>
+                                            <Button variant="danger" onClick={() => handleApproval(user._id, false)}>
+                                                Reject
+                                            </Button>
+                                        </div>
+                                    ) : (
+                                        <p>The user has been reviewed.</p>
+                                    )}
+                                </Card.Body>
+                            </Card>
+                        ))
+                    )}
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

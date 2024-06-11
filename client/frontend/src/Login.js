@@ -1,6 +1,7 @@
 // src/Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -48,32 +49,42 @@ function Login() {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <button onClick={handleRegisterRedirect}>Doesn't have an account? Register</button>
-            {message && <p>{message}</p>}
-        </div>
+        <Container>
+            <Row className="justify-content-md-center">
+                <Col md="6">
+                    <div className="mt-5">
+                        <h2>Login</h2>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="formUsername" className="mb-3">
+                                <Form.Label>Username:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="formPassword" className="mb-3">
+                                <Form.Label>Password:</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Login
+                            </Button>
+                        </Form>
+                        <Button variant="link" onClick={handleRegisterRedirect}>
+                            Don't have an account? Register
+                        </Button>
+                        {message && <p className="mt-3">{message}</p>}
+                    </div>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
