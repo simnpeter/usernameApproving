@@ -11,7 +11,7 @@ function Admin() {
             try {
                 const response = await axios({
                     method: 'get',
-                    url: `${process.env.REACT_APP_API_URL}/users`,
+                    url: `${process.env.REACT_APP_API_URL}/admin`,
                     withCredentials: false,
                 });
                 const usersData = response.data.users;
@@ -29,7 +29,7 @@ function Admin() {
         try {
             const response = await axios({
                 method: 'patch',
-                url: `${process.env.REACT_APP_API_URL}/users`,
+                url: `${process.env.REACT_APP_API_URL}/admin`,
                 withCredentials: false,
                 data:{
                     user_id: userId,

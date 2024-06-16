@@ -35,11 +35,10 @@ function Login() {
                 setMessage('Unexpected error occurred');
             }
         } catch (error) {
-            console.error('Error:', error); // Debug log
             if (error.response && error.response.data) {
-                setMessage('Error: ' + error.response.data.message);
+                setMessage(error.response.data.message);
             } else {
-                setMessage('Error: ' + error.message);
+                setMessage(error.message);
             }
         }
     };

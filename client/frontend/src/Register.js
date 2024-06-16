@@ -32,7 +32,7 @@ function Register() {
             setTimeout(() => {
                 setShowModal(false);
                 navigate('/login');
-            }, 5000); // Redirect after 5 seconds
+            }, 3000); // Redirect after 5 seconds
             } else {
                 setMessage('Unexpected error occurred');
             }
