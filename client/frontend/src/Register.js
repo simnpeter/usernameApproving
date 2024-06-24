@@ -51,13 +51,11 @@ function Register() {
     };
 
     return (
-        <Container>
-            <Row className="justify-content-md-center">
-                <Col md="6">
-                    <div className="mt-5">
-                        <h2>Register</h2>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' , flexDirection: 'column', height: '100vh' }}>
+                    <div style={{border: '1px solid black', padding: '18px 36px', borderRadius: 30}}>
+                        <h2 style={{textAlign: 'center'}}>Register</h2>
                         <Form onSubmit={handleSubmit}>
-                            <Form.Group controlId="formUsername" className="mb-3">
+                            <Form.Group controlId="formUsername" className="mb-3"  style={{width: '100%'}}>
                                 <Form.Label>Username:</Form.Label>
                                 <Form.Control
                                     type="text"
@@ -66,7 +64,7 @@ function Register() {
                                     required
                                 />
                             </Form.Group>
-                            <Form.Group controlId="formPassword" className="mb-3">
+                            <Form.Group controlId="formPassword" className="mb-3"  style={{width: '100%'}}>
                                 <Form.Label>Password:</Form.Label>
                                 <Form.Control
                                     type="password"
@@ -75,7 +73,7 @@ function Register() {
                                     required
                                 />
                             </Form.Group>
-                            <Button variant="primary" type="submit">
+                            <Button variant="primary" type="submit"  style={{width: '50%'}}>
                                 Register
                             </Button>
                         </Form>
@@ -97,9 +95,7 @@ function Register() {
                             </Modal.Footer>
                         </Modal>
                     </div>
-                </Col>
-            </Row>
-        </Container>
+                </div>
     );
 }
 

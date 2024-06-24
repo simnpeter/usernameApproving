@@ -2,6 +2,7 @@
 from models.user import User
 from datetime import datetime
 import bcrypt
+import requests
 import json
 from bson import ObjectId, json_util
 
@@ -68,5 +69,14 @@ def update_user_approval(user_id, approved):
     return {"message": "User updated successfully"}, 200
 
 def predict(name):
-    # Itt jönne a predikciós logika, ha lenne modell
-    return True
+    approval_response = requests.post('http://127.0.0.1:5000/predict', json={"username": name})
+
+    if approval_response.status_code is not 200:
+        return  None
+    
+    approved_value = approval_response.json()['approved']
+
+    return approved_value
+
+    
+    

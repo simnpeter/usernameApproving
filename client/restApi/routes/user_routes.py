@@ -14,15 +14,18 @@ def register():
     validator = Validator(rules)
 
     if not validator.validate(data):
-        return jsonify(validator.errors), 400
+        return jsonify(validator.errors), 402
 
     username = data['username']
     password = data['password']
 
     approved_value = predict(username)
 
-    response, status = register_user(username, password, approved_value)
-    return jsonify(response), status
+    if approved_value is not None:
+        response, status = register_user(username, password, approved_value)
+        return jsonify(response), status
+    else :
+        return jsonify(approved_value), 400
 
 @user_routes.route('/login', methods=['POST'])
 def login():
